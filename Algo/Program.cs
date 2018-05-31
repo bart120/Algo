@@ -22,10 +22,23 @@ namespace Algo
                 Console.WriteLine($"{ligne.Numero}- {ligne.Libelle}");
             }
 
-
+            Console.WriteLine("Saisir un choix:");
             int choix;
             choix = int.Parse(Console.ReadLine());
-            return choix;
+
+            foreach (MenuItem item in menu)
+            {
+                if (choix == item.Numero)
+                {
+                    return choix;
+                }
+            }
+            return -1;
+
+
+            //return menu.SingleOrDefault(x => x.Numero == choix) != null ? choix : -1;
+
+            
         }
 
     }
