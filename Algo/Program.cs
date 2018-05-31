@@ -15,17 +15,24 @@ namespace Algo
 
         }
 
-        private static int GererMenu(List<string> menu)
+        private static int GererMenu(List<MenuItem> menu)
         {    
-            foreach (string ligne in menu)
+            foreach (MenuItem ligne in menu)
             {
-                Console.WriteLine(ligne);
+                Console.WriteLine($"{ligne.Numero}- {ligne.Libelle}");
             }
+
 
             int choix;
             choix = int.Parse(Console.ReadLine());
             return choix;
         }
 
+    }
+
+    class MenuItem
+    {
+        public int Numero { get; set; }
+        public string Libelle { get; set; }
     }
 }
