@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Algo.MenuPerso;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,66 +13,96 @@ namespace Algo
         
         static void Main(string[] args)
         {
-            List<MenuItem> list = new List<MenuItem>
+
+            Menu menu = new Menu();
+            menu.InsererLigne(new MenuItem { Numero = 1, Libelle = "Voyages" });
+            menu.InsererLigne(new MenuItem { Numero = 3, Libelle = "Clients" });
+            menu.InsererLigne(new MenuItem { Numero = 4, Libelle = "Dossiers" });
+
+            menu.Afficher();
+            int resultat = menu.Choisir();
+
+            switch (resultat)
             {
-                new MenuItem{ Numero = 1, Libelle = "menu 1" },
-                new MenuItem{ Numero = 3, Libelle = "menu 3" },
-                new MenuItem{ Numero = 3, Libelle = "menu 3BIS" },
-                new MenuItem{ Numero = 4, Libelle = "menu 4" },
-            };
-            int resultat = GererMenu(list);
-            Console.WriteLine(resultat);
+                case 1:
+                    SousMenuVoyages();
+                    break;
+                case 3:
+                    SousMenuClients();
+                    break;
+                case 4:
+                    SousMenuDossiers();
+                    break;
+            }
             Console.ReadLine();
 
         }
 
-        /// <summary>
-        /// Affiche un menu et test et récupère la saisie de l'utilisateur
-        /// </summary>
-        /// <param name="menu">La liste des choix possible</param>
-        /// <returns>Le choix de l'utilisateur</returns>
-        private static int GererMenu(List<MenuItem> menu)
+        private static void SousMenuDossiers()
         {
-            //Affiche les élements de menu
-            foreach (MenuItem ligne in menu)
+            Menu sousMenu = new Menu();
+            sousMenu.InsererLigne(new MenuItem { Numero = 1, Libelle = "Créer" });
+            sousMenu.InsererLigne(new MenuItem { Numero = 2, Libelle = "Rechercher" });
+            sousMenu.InsererLigne(new MenuItem { Numero = 3, Libelle = "Supprimer" });
+
+            sousMenu.Afficher();
+            int resultatSousMenu = sousMenu.Choisir();
+            switch (resultatSousMenu)
             {
-                Console.WriteLine($"{ligne.Numero}- {ligne.Libelle}");
+                case 1:
+                    Console.WriteLine("Vous souhaitez: Dossiers => Créer");
+                    break;
+                case 2:
+                    Console.WriteLine("Vous souhaitez: Dossiers => Rechercher");
+                    break;
+                case 3:
+                    Console.WriteLine("Vous souhaitez: Dossiers => Supprimer");
+                    break;
             }
-
-            //récupération du choix de l'utilisateur
-            Console.WriteLine("Saisir un choix:");
-            int choix;
-            choix = int.Parse(Console.ReadLine());
-            
-            //test du choix par rapport aux éléments du menu
-            while (true)
-            {
-                foreach (MenuItem item in menu)
-                {
-                    if (choix == item.Numero)
-                    {
-                        return choix;
-                    }
-                }
-                Console.WriteLine("Erreur, saisir un choix:");
-                choix = int.Parse(Console.ReadLine());
-            }
-            //return -1;
-
-
-            //return menu.SingleOrDefault(x => x.Numero == choix) != null ? choix : -1;
-
-            
         }
 
+        private static void SousMenuClients()
+        {
+            Menu sousMenu = new Menu();
+            sousMenu.InsererLigne(new MenuItem { Numero = 1, Libelle = "Créer" });
+            sousMenu.InsererLigne(new MenuItem { Numero = 2, Libelle = "Rechercher" });
+            sousMenu.InsererLigne(new MenuItem { Numero = 3, Libelle = "Supprimer" });
+
+            sousMenu.Afficher();
+            int resultatSousMenu = sousMenu.Choisir();
+            switch (resultatSousMenu)
+            {
+                case 1:
+                    Console.WriteLine("Vous souhaitez: Clients => Créer");
+                    break;
+                case 2:
+                    Console.WriteLine("Vous souhaitez: Clients => Rechercher");
+                    break;
+                case 3:
+                    Console.WriteLine("Vous souhaitez: Clients => Supprimer");
+                    break;
+            }
+        }
+
+        private static void SousMenuVoyages()
+        {
+            Menu sousMenu = new Menu();
+            sousMenu.InsererLigne(new MenuItem { Numero = 1, Libelle = "Destination" });
+            sousMenu.InsererLigne(new MenuItem { Numero = 3, Libelle = "Compagnies" });
+
+            sousMenu.Afficher();
+            int resultatSousMenu = sousMenu.Choisir();
+            switch (resultatSousMenu)
+            {
+                case 1:
+                    Console.WriteLine("Vous souhaitez: Voyages => Destination");
+                    break;
+                case 3:
+                    Console.WriteLine("Vous souhaitez: Voyages => Compagnies");
+                    break;
+            }
+        }
     }
 
-    /// <summary>
-    /// Représente une ligne d'un menu
-    /// </summary>
-    class MenuItem
-    {
-        public int Numero { get; set; }
-        public string Libelle { get; set; }
-    }
+    
 }
